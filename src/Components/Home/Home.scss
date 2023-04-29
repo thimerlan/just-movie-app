@@ -1,0 +1,87 @@
+.mainPage {
+  height: 70vh;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  div {
+    margin-bottom: 50px;
+    h1,
+    p {
+      font-family: "Mynerve", cursive;
+      font-weight: 675;
+      color: azure;
+      font-size: 35px;
+      text-align: center;
+      width: 150%;
+      line-height: 130%;
+      background: #121fcf;
+      background: linear-gradient(to right, #cf3b12 0%, #2bcf12 100%);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      span {
+        display: inline-block;
+        font-family: "Mynerve", cursive;
+
+        background: linear-gradient(to right, #0bed40 0%, #18d6f7 100%);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+      }
+    }
+  }
+  .b {
+    position: absolute;
+    bottom: 10%;
+    left: 2%;
+    width: 472px;
+    line-height: 130%;
+    text-align: center;
+    color: aliceblue;
+    font-weight: 555;
+    animation: fLtR 6s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.5s infinite;
+    &:hover {
+      animation: normal;
+      cursor: text;
+      transform: scale(1.1);
+    }
+  }
+}
+@keyframes fLtR {
+  0% {
+    left: 2%;
+  }
+  10% {
+    left: 13%;
+  }
+  20% {
+    left: 14%;
+  }
+  30% {
+    left: 15%;
+  }
+  40% {
+    left: 26%;
+  }
+  50% {
+    left: 36%;
+    transform: scale(1.4);
+    color: #222;
+  }
+  60% {
+    left: 48%;
+  }
+  70% {
+    left: 55%;
+  }
+  80% {
+    left: 60%;
+  }
+  90% {
+    left: 4%;
+  }
+  100% {
+    left: 2%;
+  }
+}

@@ -1,0 +1,264 @@
+.DiscoverMovie {
+  margin-top: 50px;
+  width: 1400px;
+}
+
+.DiscoverMovieContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftSide {
+  margin-right: 20px;
+  * {
+    font-family: "Poppins";
+  }
+  width: 280px;
+  .Sort {
+    height: 8.3vh;
+    background-color: rgb(234, 234, 234);
+    border-radius: 1ex;
+    h3 {
+      padding: 5px;
+      font-size: 19px;
+      font-weight: 455;
+    }
+    .sortResultsBy {
+      margin-top: 10px;
+      select {
+        background-color: #8d8da5;
+        padding: 4px 8px;
+        margin-left: 5.2px;
+        margin-top: 5px;
+        width: 195px;
+        text-align: center;
+        color: #fff;
+        cursor: pointer !important;
+        border-radius: 1.2ex;
+        &:focus {
+          background-color: #7070c3e8;
+        }
+        option {
+          border-radius: 1.2ex;
+          padding: 5px 2px;
+          cursor: pointer !important;
+          background-color: #473f4a;
+        }
+      }
+    }
+  }
+
+  .Filters {
+    border-radius: 1ex;
+    margin-top: 10px;
+    background-color: rgb(214, 243, 237);
+    .genres {
+      height: 100%;
+      padding: 10px 20px;
+      h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      ul li {
+        padding: 6px 9px;
+        background-color: #b8d6dbeb;
+        border-radius: 1ex;
+        font-weight: 555;
+        cursor: pointer;
+        transition: 0.2s all ease-out;
+        &:hover {
+          background-color: #5defa6;
+        }
+      }
+      .loadingGenres {
+        height: 35vh;
+        margin-top: 90px;
+      }
+    }
+    .primaryReleaseYear {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      padding: 15px 0px 20px 0px;
+      input {
+        background-color: #4a6cd8e3;
+        color: #fff;
+        padding: 3px 5px;
+        border-radius: 1ex;
+        margin-right: 6px;
+        margin-left: 6px;
+        width: 80px;
+      }
+      button {
+        color: #fff;
+        padding: 3px 3px;
+        border-radius: 1ex;
+        &:disabled {
+          background-color: #8d8da5 !important;
+        }
+      }
+    }
+  }
+}
+.rightSide {
+  width: 100%;
+  height: 100%;
+
+  .Movies {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    .movie {
+      transition: 0.5s all cubic-bezier(0.165, 0.84, 0.44, 1);
+      padding: 10px;
+      width: 273px;
+      height: 398px;
+      margin: 0 auto;
+      animation: loading 0.4s ease 0s 1;
+      margin-bottom: 15px;
+      position: relative;
+      &:hover {
+        transform: translate3d(15px, -10px, 15px);
+      }
+      img {
+        cursor: pointer;
+        border-radius: 1ex;
+        width: 100%;
+        // BOOM!
+        height: 100%;
+        animation: imgLoader 3s ease-out 0s infinite;
+      }
+      p {
+        transition: 0.1s all ease-out;
+        font-weight: 655;
+        text-align: center;
+        padding: 3px 0px;
+        color: #566cd3;
+        font-size: 14px;
+        &:hover {
+          letter-spacing: 0.09em;
+        }
+      }
+      .averageAndLanguage {
+        position: relative;
+        z-index: 2;
+        .vote {
+          position: absolute;
+          font-weight: 777;
+          right: 5px;
+          top: 5px;
+          padding: 8px;
+          border-radius: 15%;
+          background-color: #2222226f;
+          font-size: 12.5px;
+        }
+        .lang {
+          font-weight: 665;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          color: #282aa8;
+          padding: 10px;
+          background-color: #e6dddd6f;
+          border-radius: 1ex;
+        }
+      }
+    }
+    .loadingMovies {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: -110px;
+      right: 0px;
+      left: 50px;
+      bottom: 0px;
+    }
+    .pagination {
+      width: 100%;
+      padding-top: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        display: inline-block;
+        margin-right: 10px;
+        color: #fbd92d;
+        font-size: 20px;
+        background-color: #301f52;
+        padding: 4px;
+        border-radius: 2ex;
+        font-weight: 575;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+          background-color: #3191be;
+        }
+        &:last-child {
+          margin-right: 0px;
+        }
+      }
+      p {
+        font-size: 25px !important;
+        color: #fff;
+      }
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+  80% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+.notFoundMovies {
+  p {
+    font-size: 26px;
+    color: #eee;
+    font-weight: 655;
+    margin-left: 220px;
+    margin-top: 121px;
+    font-family: "Poppins";
+    text-transform: uppercase;
+  }
+}
+
+.addingToFavorite {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  button {
+    background-color: transparent;
+  }
+}

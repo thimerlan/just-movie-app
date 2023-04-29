@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+.contentsFavoriteMovies {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 1450px;
+  margin-top: 30px;
+
+  .movie {
+    transition: 0.5s all cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding: 15px;
+    width: 362px;
+    height: 555px;
+
+    margin: 0 auto;
+    animation: loading 0.4s ease 0s 1;
+    margin-bottom: 15px;
+    &:hover {
+      transform: translate3d(15px, -20px, 15px);
+    }
+    img {
+      cursor: pointer;
+      border-radius: 1ex;
+      width: 100%;
+      height: 100%;
+      animation: imgLoader 3s ease-out 0s infinite;
+    }
+    p {
+      transition: 0.1s all ease-out;
+      font-weight: 557;
+      text-align: center;
+      padding: 3px 0px;
+      color: #566cd3;
+      font-size: 15px;
+      &:hover {
+        letter-spacing: 0.09em;
+      }
+    }
+    .averageAndLanguage {
+      position: relative;
+      z-index: 2;
+      .vote {
+        position: absolute;
+        font-weight: 555;
+        right: 5px;
+        top: 5px;
+        padding: 8px;
+        border-radius: 15%;
+        background-color: #2222226f;
+      }
+      .lang {
+        font-weight: 765;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        color: #282aa8;
+        padding: 10px;
+        background-color: #e6dddd6f;
+        border-radius: 1ex;
+      }
+    }
+  }
+}
+@keyframes imgLoader {
+  0%,
+  100% {
+    background-image: url("https://i.pinimg.com/474x/53/7e/09/537e0988135413bf13c380ceede70869.jpg");
+    background-position: center;
+    background-size: cover;
+
+    background-repeat: no-repeat;
+  }
+}
+
+.KeepInHeart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 800px;
+  height: 300px;
+  margin-left: 23%;
+  text-align: center;
+  line-height: 30px;
+  h2 {
+    font-weight: 500;
+    color: #fff;
+    font-size: 25px;
+    font-family: "Lilita One", cursive;
+    letter-spacing: 0.1ex;
+  }
+  div {
+    margin-top: 10px;
+    cursor: grab;
+    transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+.Sorting {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 30px;
+  button {
+    border-radius: 1ex;
+    padding: 2px;
+    background-color: #566cd3;
+    font-weight: 555;
+    font-family: "Poppins";
+    color: #fff;
+    &:active {
+      background-color: #282aa8;
+      color: aliceblue;
+    }
+  }
+}

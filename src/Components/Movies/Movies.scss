@@ -1,0 +1,151 @@
+.genreMovies {
+  margin-top: 50px;
+
+  .typeGenre {
+    margin-right: 1100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    a {
+      font-family: "Poppins";
+      font-weight: 667;
+      color: #567cf9;
+    }
+  }
+}
+
+.bg-img {
+  background-image: url("https://wallpaperaccess.com/full/769774.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  border-radius: 10%;
+  position: relative;
+  span {
+    position: absolute;
+    bottom: -5px;
+    right: 42%;
+    font-weight: 777;
+    font-family: "Mynerve";
+    font-size: 33px;
+    color: #567cf9;
+    display: inline-block;
+    transform: translate3D(1px, -3px, 30px) scale(1.2);
+  }
+  transition: 0.5s ease;
+}
+.bg-imgOff {
+  transition: 0.5s ease;
+
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  span {
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+}
+// MUST HAVE STYLES FOR CONTENT MOVIES
+.ContentMovies {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  padding: 0px 10px;
+  .pageStatistics {
+    span {
+      font-weight: 555;
+      color: whitesmoke;
+      margin-right: 12px;
+    }
+  }
+}
+
+.loading {
+  width: 100%;
+  margin: 0px auto;
+  margin-top: 80px;
+  transform: scale(1.3);
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+  80% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.addMore {
+  padding: 13px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  button {
+    transition: 0.2s ease;
+    padding: 7px 14px;
+    border-radius: 1.2ex;
+    color: #fff;
+    font-family: "Poppins";
+    font-weight: 667;
+    background-image: linear-gradient(
+      90deg,
+      #667eea,
+      #667eea,
+      #6b8dd6,
+      #667eea
+    );
+    box-shadow: 0 4px 15px 0 rgb(116 79 168 / 75%);
+    &:hover {
+      transform: scale(1.1);
+      background-image: linear-gradient(
+        90deg,
+        #566cd3,
+        #6b8dd6,
+        #6b8dd6,
+        #566cd3
+      );
+      text-shadow: 2px 2px 3px #c27407;
+    }
+  }
+}
+
+.selectLang {
+  margin-right: 10px;
+
+  button {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    background-color: #667eea76;
+    border-radius: 1.2ex;
+    padding: 3px;
+  }
+}
