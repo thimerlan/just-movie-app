@@ -14,7 +14,6 @@ const Movie: FC<MovieProps> = ({ movies }) => {
     const movie = movies?.results.filter((mov) => mov.id === id);
     if (movie) {
       const newFavorites = [...favoriteMovies, ...movie];
-
       setFavoriteMovies(newFavorites);
       localStorage.setItem("favoriteMovies", JSON.stringify(newFavorites));
     }
@@ -66,23 +65,27 @@ const Movie: FC<MovieProps> = ({ movies }) => {
 
             <p>{movie.title}</p>
             <div className="addingToFavorite">
-              <button
-                title="Add to Favorite"
-                onClick={() => {
-                  favoriteMovies.length > 0 && favoriteMovies.includes(movie)
-                    ? removeFromFavorites(movie.id)
-                    : addToFavorites(movie.id);
-                }}
-              >
-                <AiFillHeart
-                  size={22}
-                  fill={
-                    favoriteMovies.length > 0 && favoriteMovies.includes(movie)
-                      ? "#d30000"
-                      : "#8c92ac"
-                  }
-                />
-              </button>
+              {favoriteMovies.some(
+                (favoriteMovie) => favoriteMovie.id === movie.id
+              ) ? (
+                <button
+                  title="Remove from Favorites"
+                  onClick={() => {
+                    removeFromFavorites(movie.id);
+                  }}
+                >
+                  <AiFillHeart size={25} fill={"#d30000"} />
+                </button>
+              ) : (
+                <button
+                  title="Add to Favorites "
+                  onClick={() => {
+                    addToFavorites(movie.id);
+                  }}
+                >
+                  <AiFillHeart size={22} fill={"#8c92ac"} />
+                </button>
+              )}
             </div>
           </div>
         ))

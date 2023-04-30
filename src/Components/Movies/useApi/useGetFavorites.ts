@@ -3,7 +3,10 @@ import { IResultData } from "../Interface";
 
 const useGetFavorite = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [favoriteMovies, setFavoriteMovies] = useState<IResultData[]>([]);
+  const [favoriteMovies, setFavoriteMovies] = useState<IResultData[]>(() => {
+    const storedMovies = localStorage.getItem("favoriteMovies");
+    return storedMovies ? JSON.parse(storedMovies) : [];
+  });
 
   useEffect(() => {
     // Retrieve the list of favorite movies from local storage
