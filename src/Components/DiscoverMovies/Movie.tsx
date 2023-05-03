@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import { IMovies } from "./useGetDiscoverMovies";
 import { IResultData } from "../Movies/Interface";
 import { AiFillHeart } from "react-icons/ai";
@@ -74,7 +74,7 @@ const Movie: FC<MovieProps> = ({ movies }) => {
                     removeFromFavorites(movie.id);
                   }}
                 >
-                  <AiFillHeart size={25} fill={"#d30000"} />
+                  <AiFillHeart size={26} fill={"#d31000"} />
                 </button>
               ) : (
                 <button
