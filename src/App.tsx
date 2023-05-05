@@ -27,9 +27,9 @@ const Root = (): JSX.Element => {
       <div>
         <NavLink to={"/"}>Home</NavLink>
 
-        <NavLink to={"/Movies"}>Movies</NavLink>
+        <NavLink to={"/movies"}>Movies</NavLink>
         <NavLink to={"/discover/movie"}>Discovery</NavLink>
-        <NavLink to={"/Favorites"}>Favorites</NavLink>
+        <NavLink to={"/favorites"}>Favorites</NavLink>
       </div>
       <div>
         <Outlet />
@@ -43,17 +43,15 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route path="/" index element={<Home />} />
-        <Route path="/Favorites" element={<Favorites />} />
-        <Route path="/Favorites/:id" element={<Favorite />} />
-        <Route path="/Movies" element={<Movies />}>
-          <Route path="/Movies/Popular" element={<PopularMovies />} />
-          <Route path="/Movies/Popular/:id" element={<SingleMovie />} />
-          <Route path="/Movies/UpComing" element={<UpComingMovies />} />
-          <Route path="/Movies/UpComing/:id" element={<UpSingleMovie />} />
-          <Route path="/Movies/Favorites" element={<Favorites />} />
-          <Route path="/Movies/Favorites/:id" element={<Favorite />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/favorites/:id" element={<Favorite />} />
+        <Route path="/movies" element={<Movies />}>
+          <Route path="/movies/popular" element={<PopularMovies />} />
+          <Route path="/movies/popular/:id" element={<SingleMovie />} />
+          <Route path="/movies/upcoming" element={<UpComingMovies />} />
+          <Route path="/movies/upcoming/:id" element={<UpSingleMovie />} />
           <Route
-            path="/Movies/Recommendations/:id"
+            path="/movies/recommendations/:id"
             element={<SingleRecommendations />}
           />
         </Route>

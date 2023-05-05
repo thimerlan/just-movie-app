@@ -41,7 +41,6 @@ const UpComingMovies: FC<Props> = () => {
       async function getUpComingMovies() {
         let api_key = "d39c2fb1b1580a4f6618a3b23b2f7093";
         try {
-          //   `https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=${page}`
           const response = await axios.get<IUComingMovies>(
             `https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=${page}`
           );
@@ -117,7 +116,7 @@ const UpComingMovies: FC<Props> = () => {
                 </span>
                 <span className="lang">{movie.original_language}</span>
               </div>
-              <Link to={`/Movies/UpComing/${movie.id}`}>
+              <Link to={`/movies/upcoming/${movie.id}`}>
                 <img
                   src={`${
                     movie.poster_path

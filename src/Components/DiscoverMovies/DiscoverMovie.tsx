@@ -28,11 +28,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     primaryReleaseAccept,
     setPrimaryReleaseAccept,
   } = useGetDiscoverMovies();
-  //   const selectedGenres = genres?.genres.filter((gen) =>
-  // 	selectedGenreIds.includes(gen.id)
-  //   );
-  //   const selectedGenreNames = selectedGenres?.map((gen) => gen.name);
-  //   console.log(selectedGenreNames);
+
   const handlerAddingGenreIds = (genreId: number): void => {
     if (selectedGenreIds.includes(genreId)) {
       setSelectedGenreIds(selectedGenreIds.filter((id) => id !== genreId));
@@ -47,6 +43,10 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     const genre = searchParams.get("genres")?.split(",").map(Number) || [];
     const resultsSorting = searchParams.get("sort_results_by") || "";
     const primaryReleaseState = searchParams.get("primary_release") || "";
+    const page = searchParams.get("page") || "";
+    const cutPagesF = searchParams.get("pagination_first") || 0;
+    const cutPagesL = searchParams.get("pagination_last") || 7;
+
     if (genre.length) {
       setSelectedGenreIds(genre);
       setSortSelecting(resultsSorting);
@@ -61,6 +61,13 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     if (resultsSorting.length) {
       setSortSelecting(resultsSorting);
     }
+    if (page) {
+      setCurrentPage(parseInt(page));
+      setCutPages({
+        first: Number(cutPagesF),
+        last: Number(cutPagesL),
+      });
+    }
   }, [location.search]);
 
   useEffect(() => {
@@ -68,19 +75,51 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
       navigate(
         `/discover/movie?sort_results_by=${sortSelecting}&genres=${selectedGenreIds}${
           primaryRelease.length ? `&primary_release=${primaryRelease}` : ""
+        }${
+          currentPage > 1
+            ? `&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
+            : ""
         }`
       );
     } else if (sortSelecting.length > 0 && selectedGenreIds.length > 0) {
       navigate(
         `/discover/movie?sort_results_by=${sortSelecting}&genres=${selectedGenreIds}`
       );
+    } else if (
+      currentPage > 1 &&
+      sortSelecting.length > 0 &&
+      primaryRelease.length > 0
+    ) {
+      navigate(
+        `/discover/movie?sort_results_by=${sortSelecting}&primary_release=${primaryRelease}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
+      );
     } else if (primaryRelease.length > 0 && sortSelecting.length > 0) {
       navigate(
         `/discover/movie?sort_results_by=${sortSelecting}&primary_release=${primaryRelease}`
       );
+    } else if (
+      currentPage > 1 &&
+      selectedGenreIds.length > 0 &&
+      primaryRelease.length > 0
+    ) {
+      navigate(
+        `/discover/movie?genres=${selectedGenreIds}&primary_release=${primaryRelease}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
+      );
     } else if (selectedGenreIds.length > 0 && primaryRelease.length > 0) {
       navigate(
         `/discover/movie?genres=${selectedGenreIds}&primary_release=${primaryRelease}`
+      );
+    } else if (sortSelecting.length > 0 && currentPage > 1) {
+      navigate(
+        `/discover/movie?sort_results_by=${sortSelecting}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
+      );
+    } else if (primaryRelease.length > 0 && currentPage > 1) {
+      navigate(
+        `/discover/movie?primary_release=${primaryRelease}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
+      );
+    } else if (currentPage > 1 && selectedGenreIds.length > 0) {
+      navigate(
+        `/discover/movie?genres=${selectedGenreIds}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
       );
     } else if (sortSelecting.length > 0) {
       navigate(`/discover/movie?sort_results_by=${sortSelecting}`);
@@ -88,6 +127,10 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
       navigate(`/discover/movie?genres=${selectedGenreIds}`);
     } else if (primaryRelease.length > 0) {
       navigate(`/discover/movie?primary_release=${primaryRelease}`);
+    } else if (currentPage > 1) {
+      navigate(
+        `/discover/movie?page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
+      );
     } else {
       navigate(`/discover/movie`);
     }
@@ -96,6 +139,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     location.search,
     sortSelecting,
     primaryReleaseAccept,
+    currentPage,
     sortSelecting.length || selectedGenreIds.length ? "" : primaryRelease,
   ]);
 
@@ -111,6 +155,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                   setSortSelecting(e.target.value),
                     setLoading(true),
                     setCurrentPage(1);
+                  setCutPages({ first: 0, last: 7 });
                 }}
               >
                 <option
@@ -151,6 +196,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                         handlerAddingGenreIds(genre.id),
                           setLoading(true),
                           setCurrentPage(1);
+                        setCutPages({ first: 0, last: 7 });
                       }}
                       key={genre.id}
                     >
@@ -159,7 +205,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                   ))
                 ) : (
                   <div className="loadingGenres">
-                    <RiseLoader color="#33d5eb" size={20} />
+                    <RiseLoader color="#33d5eb" size={22} />
                   </div>
                 )}
               </ul>
@@ -174,6 +220,8 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                   setPrimaryRelease(""),
                     setPrimaryReleaseAccept((prev: boolean) => !prev),
                     setLoading(true);
+                  setCurrentPage(1);
+                  setCutPages({ first: 0, last: 7 });
                 }}
               >
                 All years
@@ -219,6 +267,9 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
               <>
                 <Movie movies={movies} />
                 <div className="pagination">
+                  <p className="pagination_dot">
+                    {cutPages.first > 1 ? "..." : ""}
+                  </p>
                   {movies &&
                     movies?.results.length > 1 &&
                     moviesPerPage
@@ -278,6 +329,9 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                           {p}
                         </span>
                       ))}
+                  <p className="pagination_dot">
+                    {currentPage <= 500 ? "..." : ""}
+                  </p>
                 </div>
               </>
             )}

@@ -287,7 +287,7 @@ const SingleRecommendations: FC<SingleMovieProps> = () => {
                     setAcceptWorking(true);
                     setIdR(Number(id));
                   }}
-                  to={`/Movies/Recommendations/${movie.id}`}
+                  to={`/movies/recommendations/${movie.id}`}
                 >
                   <img
                     src={`${

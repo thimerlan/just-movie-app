@@ -114,7 +114,7 @@ const PopularMovies: FC<Props> = () => {
                 </span>
                 <span className="lang">{movie.original_language}</span>
               </div>
-              <Link to={`/Movies/Popular/${movie.id}`}>
+              <Link to={`/movies/popular/${movie.id}`}>
                 <img
                   src={`${
                     movie.poster_path

@@ -19,18 +19,18 @@ const Movies: FC<Props> = () => {
   return (
     <div className="genreMovies">
       <div className="typeGenre">
-        <NavLink title="Popular movies." to={"/Movies/Popular"}>
+        <NavLink title="Popular movies." to={"/movies/popular"}>
           Popular
         </NavLink>
         <NavLink
           title="Upcoming or already released movies."
-          to={"/Movies/UpComing"}
+          to={"/movies/upcoming"}
         >
           Upcoming
         </NavLink>
       </div>
 
-      <div className={`${pathname !== "/Movies" && "bg-imgOff"} bg-img`}>
+      <div className={`${pathname !== "/movies" && "bg-imgOff"} bg-img`}>
         <span>I am a baby.</span>
       </div>
 
@@ -40,17 +40,3 @@ const Movies: FC<Props> = () => {
 };
 
 export default Movies;
-
-//   useEffect(() => {
-//     const getMovieList = async () => {
-//       // "https://api.themoviedb.org/3/genre/tv/list?api_key=d39c2fb1b1580a4f6618a3b23b2f7093&language=en-US"
-//       //   "https://api.themoviedb.org/3/search/movie?api_key=d39c2fb1b1580a4f6618a3b23b2f7093&language=en-US&query=Hulk&page=1&include_adult=false"
-//       //   "https://api.themoviedb.org/3/search/collection?api_key=d39c2fb1b1580a4f6618a3b23b2f7093&language=en-US&query=hulk&page=1"
-//       //   "https://api.themoviedb.org/3/search/keyword?api_key=d39c2fb1b1580a4f6618a3b23b2f7093&query=Love&page=1"
-//       const res = await axios.get(
-//         "https://api.themoviedb.org/3/movie/934433/images?api_key=d39c2fb1b1580a4f6618a3b23b2f7093&language=en-US"
-//       );
-//       console.log(res.data);
-//     };
-//     // getMovieList();
-//   }, []);

@@ -85,7 +85,7 @@ const Favorite: FC<FavoriteProps> = () => {
                 </span>
                 <span className="lang">{movie.original_language}</span>
               </div>
-              <Link to={`/Favorites/${movie.id}`}>
+              <Link to={`/favorites/${movie.id}`}>
                 <img
                   src={`${
                     movie.poster_path

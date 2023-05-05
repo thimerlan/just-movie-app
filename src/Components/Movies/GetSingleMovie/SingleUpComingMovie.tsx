@@ -281,7 +281,7 @@ const UpSingleMovie: FC<SingleMovieProps> = () => {
                   </span>
                   <span className="lang">{movie.original_language}</span>
                 </div>
-                <Link to={`/Movies/Recommendations/${movie.id}`}>
+                <Link to={`/movies/recommendations/${movie.id}`}>
                   <img
                     src={`${
                       movie.poster_path
