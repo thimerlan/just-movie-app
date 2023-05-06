@@ -69,80 +69,38 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
       });
     }
   }, [location.search]);
-
   useEffect(() => {
-    if (sortSelecting.length > 0 && selectedGenreIds.length > 0) {
-      navigate(
-        `/discover/movie?sort_results_by=${sortSelecting}&genres=${selectedGenreIds}${
-          primaryRelease.length ? `&primary_release=${primaryRelease}` : ""
-        }${
-          currentPage > 1
-            ? `&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-            : ""
-        }`
-      );
-    } else if (sortSelecting.length > 0 && selectedGenreIds.length > 0) {
-      navigate(
-        `/discover/movie?sort_results_by=${sortSelecting}&genres=${selectedGenreIds}`
-      );
-    } else if (
-      currentPage > 1 &&
-      sortSelecting.length > 0 &&
-      primaryRelease.length > 0
-    ) {
-      navigate(
-        `/discover/movie?sort_results_by=${sortSelecting}&primary_release=${primaryRelease}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-      );
-    } else if (primaryRelease.length > 0 && sortSelecting.length > 0) {
-      navigate(
-        `/discover/movie?sort_results_by=${sortSelecting}&primary_release=${primaryRelease}`
-      );
-    } else if (
-      currentPage > 1 &&
-      selectedGenreIds.length > 0 &&
-      primaryRelease.length > 0
-    ) {
-      navigate(
-        `/discover/movie?genres=${selectedGenreIds}&primary_release=${primaryRelease}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-      );
-    } else if (selectedGenreIds.length > 0 && primaryRelease.length > 0) {
-      navigate(
-        `/discover/movie?genres=${selectedGenreIds}&primary_release=${primaryRelease}`
-      );
-    } else if (sortSelecting.length > 0 && currentPage > 1) {
-      navigate(
-        `/discover/movie?sort_results_by=${sortSelecting}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-      );
-    } else if (primaryRelease.length > 0 && currentPage > 1) {
-      navigate(
-        `/discover/movie?primary_release=${primaryRelease}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-      );
-    } else if (currentPage > 1 && selectedGenreIds.length > 0) {
-      navigate(
-        `/discover/movie?genres=${selectedGenreIds}&page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-      );
-    } else if (sortSelecting.length > 0) {
-      navigate(`/discover/movie?sort_results_by=${sortSelecting}`);
-    } else if (selectedGenreIds.length > 0) {
-      navigate(`/discover/movie?genres=${selectedGenreIds}`);
-    } else if (primaryRelease.length > 0) {
-      navigate(`/discover/movie?primary_release=${primaryRelease}`);
-    } else if (currentPage > 1) {
-      navigate(
-        `/discover/movie?page=${currentPage}&pagination_first=${cutPages.first}&pagination_last=${cutPages.last}`
-      );
-    } else {
-      navigate(`/discover/movie`);
+    const baseUrl = "/discover/movie";
+    const params = new URLSearchParams();
+
+    if (sortSelecting.length > 0) {
+      params.set("sort_results_by", sortSelecting);
     }
+
+    if (selectedGenreIds.length > 0) {
+      params.set("genres", selectedGenreIds.toString());
+    }
+
+    if (primaryRelease.length > 0) {
+      params.set("primary_release", primaryRelease);
+    }
+
+    if (typeof currentPage === "number" && currentPage > 1) {
+      params.set("page", currentPage.toString());
+      params.set("pagination_first", cutPages.first.toString());
+      params.set("pagination_last", cutPages.last.toString());
+    }
+
+    navigate(`${baseUrl}?${params.toString()}`);
   }, [
-    selectedGenreIds,
     location.search,
     sortSelecting,
-    primaryReleaseAccept,
-    currentPage,
+    selectedGenreIds,
     sortSelecting.length || selectedGenreIds.length ? "" : primaryRelease,
+    ,
+    currentPage,
+    primaryReleaseAccept,
   ]);
-
   return (
     <div className="DiscoverMovie">
       <div className="DiscoverMovieContainer">

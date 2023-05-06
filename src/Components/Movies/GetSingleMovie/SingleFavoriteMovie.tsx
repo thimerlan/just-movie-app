@@ -136,7 +136,9 @@ const Favorite: FC<FavoriteMovieProps> = () => {
             <div className="bodySingleMovie">
               <div className="favBtn">
                 <button
-                  title="Add to Favorite"
+                  title={
+                    isAddedToFav ? "Remove from Favorites" : "Add to Favorites"
+                  }
                   className={isAddedToFav ? "favAct" : ""}
                   onClick={() => {
                     isAddedToFav ? removeFromFavorites() : addToFavorites();
