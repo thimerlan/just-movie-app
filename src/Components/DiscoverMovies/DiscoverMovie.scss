@@ -31,7 +31,7 @@
         padding: 4px 8px;
         margin-left: 5.2px;
         margin-top: 5px;
-        width: 195px;
+        width: 190px;
         text-align: center;
         color: #fff;
         cursor: pointer !important;
@@ -78,7 +78,7 @@
         }
       }
       .loadingGenres {
-        height: 35vh;
+        height: 32vh;
         margin-top: 90px;
       }
     }
@@ -132,20 +132,18 @@
         cursor: pointer;
         border-radius: 1ex;
         width: 100%;
-        // BOOM!
         height: 100%;
-        animation: imgLoader 3s ease-out 0s infinite;
       }
+
       p {
         transition: 0.1s all ease-out;
         font-weight: 655;
         text-align: center;
-        padding: 3px 0px;
+        padding: 4px 0px;
         color: #566cd3;
         font-size: 14px;
-        &:hover {
-          letter-spacing: 0.09em;
-        }
+        position: absolute;
+        bottom: -12px;
       }
       .averageAndLanguage {
         position: relative;
@@ -268,4 +266,45 @@
   color: rgb(228, 48, 48) !important;
   margin-right: 10px;
   margin-bottom: 3px;
+}
+
+@media (max-width: 1390px) {
+  .Movies {
+    width: 1000px;
+  }
+  .DiscoverMovie {
+    margin-top: 50px;
+    width: 1200px;
+  }
+  .leftSide {
+    margin-right: 0px;
+    width: 200px !important;
+    .Sort {
+      height: 9.4vh;
+    }
+  }
+  .primaryReleaseYear {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 15px 0px !important;
+    input {
+      background-color: #4a6cd8e3;
+      color: #fff;
+      padding: 3px 5px;
+      border-radius: 1ex;
+      margin-right: 6px;
+      margin-left: 6px;
+      width: 60px !important;
+    }
+    button {
+      color: #fff;
+      padding: 3px 3px;
+      border-radius: 1ex;
+      &:disabled {
+        background-color: #8d8da5 !important;
+      }
+    }
+  }
 }

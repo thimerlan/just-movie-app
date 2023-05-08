@@ -27,7 +27,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     setPrimaryRelease,
     primaryReleaseAccept,
     setPrimaryReleaseAccept,
-  } = useGetDiscoverMovies();
+  } = useGetDiscoverMovies() ?? {};
 
   const handlerAddingGenreIds = (genreId: number): void => {
     if (selectedGenreIds.includes(genreId)) {
@@ -40,7 +40,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
   const location = useLocation();
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const genre = searchParams.get("genres")?.split(",").map(Number) || [];
+    const genre = searchParams.get("genres")?.split(",").map(Number) ?? [];
     const resultsSorting = searchParams.get("sort_results_by") || "";
     const primaryReleaseState = searchParams.get("primary_release") || "";
     const page = searchParams.get("page") || "";
@@ -101,6 +101,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     currentPage,
     primaryReleaseAccept,
   ]);
+
   return (
     <div className="DiscoverMovie">
       <div className="DiscoverMovieContainer">

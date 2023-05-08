@@ -3,11 +3,15 @@ import { IMovies } from "./useGetDiscoverMovies";
 import { IResultData } from "../Movies/Interface";
 import { AiFillHeart } from "react-icons/ai";
 import useGetFavorite from "../Movies/useApi/useGetFavorites";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import LazyImage from "./LazyImage";
 interface MovieProps {
   movies: IMovies | undefined;
 }
 
-const Movie: FC<MovieProps> = ({ movies }) => {
+const Movie: FC<MovieProps> = React.memo(({ movies }) => {
   const { setFavoriteMovies, favoriteMovies } = useGetFavorite();
 
   const addToFavorites = (id: number): void => {
@@ -53,8 +57,7 @@ const Movie: FC<MovieProps> = ({ movies }) => {
               </span>
               <span className="lang">{movie.original_language}</span>
             </div>
-
-            <img
+            <LazyImage
               src={`${
                 movie.poster_path
                   ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
@@ -96,6 +99,6 @@ const Movie: FC<MovieProps> = ({ movies }) => {
       )}
     </>
   );
-};
+});
 
 export default Movie;
