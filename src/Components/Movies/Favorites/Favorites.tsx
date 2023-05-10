@@ -64,7 +64,7 @@ const Favorite: FC<FavoriteProps> = () => {
         )}
       </div>
       <div className="contentsFavoriteMovies">
-        {favoriteMovies.length ? (
+        {favoriteMovies.length > 0 ? (
           favoriteMovies?.map((movie: any) => (
             <div key={movie.id} className="movie">
               <div className="averageAndLanguage">

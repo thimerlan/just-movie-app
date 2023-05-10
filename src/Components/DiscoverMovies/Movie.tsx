@@ -5,7 +5,6 @@ import { AiFillHeart } from "react-icons/ai";
 import useGetFavorite from "../Movies/useApi/useGetFavorites";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import React from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import LazyImage from "./LazyImage";
 interface MovieProps {
   movies: IMovies | undefined;
@@ -60,7 +59,7 @@ const Movie: FC<MovieProps> = React.memo(({ movies }) => {
             <LazyImage
               src={`${
                 movie.poster_path
-                  ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                  ? `https://image.tmdb.org/t/p/w440_and_h660_face${movie.poster_path}`
                   : "https://marketplace.canva.com/EAE9OZ4Eh9o/1/0/1131w/canva-black-minimalist-coming-soon-poster-rmN33IHdOEM.jpg"
               }`}
               alt={movie.title}

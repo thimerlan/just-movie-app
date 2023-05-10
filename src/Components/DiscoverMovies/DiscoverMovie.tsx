@@ -38,6 +38,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
   };
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const genre = searchParams.get("genres")?.split(",").map(Number) ?? [];
@@ -101,7 +102,9 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
     currentPage,
     primaryReleaseAccept,
   ]);
-
+  if (cutPages.first < 0) {
+    setCutPages({ first: 0, last: 7 });
+  }
   return (
     <div className="DiscoverMovie">
       <div className="DiscoverMovieContainer">
