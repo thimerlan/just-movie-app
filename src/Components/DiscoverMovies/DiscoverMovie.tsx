@@ -105,6 +105,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
   if (cutPages.first < 0) {
     setCutPages({ first: 0, last: 7 });
   }
+
   return (
     <div className="DiscoverMovie">
       <div className="DiscoverMovieContainer">
@@ -212,6 +213,9 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                 }}
                 onClick={() => {
                   setPrimaryReleaseAccept((prev: boolean) => !prev);
+                  setLoading(true);
+                  setCurrentPage(1);
+                  setCutPages({ first: 0, last: 7 });
                 }}
               >
                 Confirm
@@ -235,11 +239,8 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                   {movies &&
                     movies?.results.length > 1 &&
                     moviesPerPage
-                      .slice(
-                        currentPage >= 5 ? cutPages.first : 0,
-                        currentPage >= 5 ? cutPages.last : 7
-                      )
-                      .map((p, index, array) => (
+                      .slice(cutPages.first, cutPages.last)
+                      .map((p: number, index: number, array: number[]) => (
                         <span
                           style={{
                             background: p === currentPage ? "#3191be" : "",
@@ -273,7 +274,6 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                                     first:
                                       prev.first +
                                       (currentPage > 3 &&
-                                      array.length > 6 &&
                                       currentPage > cutPages.first + 2
                                         ? 2
                                         : 0),
@@ -292,7 +292,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
                         </span>
                       ))}
                   <p className="pagination_dot">
-                    {currentPage <= 500 ? "..." : ""}
+                    {moviesPerPage.length < currentPage + 3 ? "" : "..."}
                   </p>
                 </div>
               </>

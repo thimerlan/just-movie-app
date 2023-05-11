@@ -70,21 +70,14 @@ const useGetDiscoverMovies = () => {
           pagesArray.push(i);
         }
 
-        if (totalPages < currentPage) {
-          setCutPages({ first: 0, last: 7 });
-          setCurrentPage(1);
-          setMoviesPerPage(pagesArray);
-        } else {
-          setMoviesPerPage(pagesArray);
-        }
-
-        window.scrollTo(0, 0);
+        setMoviesPerPage(pagesArray);
         !sortSelecting
           ? setTimeout(() => {
               setLoading(false);
             }, 1000)
           : setLoading(false);
         setPrimaryReleaseAccept(false);
+        window.scrollTo(0, 0);
       } catch (error) {
         console.log(error);
       }
