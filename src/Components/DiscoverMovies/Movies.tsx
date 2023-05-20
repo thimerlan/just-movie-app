@@ -1,16 +1,17 @@
 import { FC } from "react";
-import { IMovies } from "./useGetDiscoverMovies";
-import { IResultData } from "../Movies/Interface";
+import { IMovies, IResultData } from "../Movies/Interface";
 import { AiFillHeart } from "react-icons/ai";
 import useGetFavorite from "../Movies/useApi/useGetFavorites";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import React from "react";
-import LazyImage from "./LazyImage";
+import LazyImage from "../LazyImage/LazyImage";
+import { Link } from "react-router-dom";
+import useGetMovieDetails from "./DiscoverApi/useGetMovieDetails";
 interface MovieProps {
   movies: IMovies | undefined;
 }
 
-const Movie: FC<MovieProps> = React.memo(({ movies }) => {
+const Movies: FC<MovieProps> = React.memo(({ movies }) => {
   const { setFavoriteMovies, favoriteMovies } = useGetFavorite();
 
   const addToFavorites = (id: number): void => {
@@ -33,7 +34,7 @@ const Movie: FC<MovieProps> = React.memo(({ movies }) => {
       JSON.stringify(updatedFavoriteMovies)
     );
   };
-
+  const { setMovieId } = useGetMovieDetails();
   return (
     <>
       {movies?.results.length ? (
@@ -56,15 +57,17 @@ const Movie: FC<MovieProps> = React.memo(({ movies }) => {
               </span>
               <span className="lang">{movie.original_language}</span>
             </div>
-            <LazyImage
-              src={`${
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w440_and_h660_face${movie.poster_path}`
-                  : "https://marketplace.canva.com/EAE9OZ4Eh9o/1/0/1131w/canva-black-minimalist-coming-soon-poster-rmN33IHdOEM.jpg"
-              }`}
-              alt={movie.title}
-            />
 
+            <Link to={`/discover/movie/${movie.id}`}>
+              <LazyImage
+                src={`${
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w440_and_h660_face${movie.poster_path}`
+                    : "https://marketplace.canva.com/EAE9OZ4Eh9o/1/0/1131w/canva-black-minimalist-coming-soon-poster-rmN33IHdOEM.jpg"
+                }`}
+                alt={movie.title}
+              />
+            </Link>
             <p>{movie.title}</p>
             <div className="addingToFavorite">
               {favoriteMovies.some(
@@ -100,4 +103,4 @@ const Movie: FC<MovieProps> = React.memo(({ movies }) => {
   );
 });
 
-export default Movie;
+export default Movies;

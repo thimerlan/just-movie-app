@@ -29,7 +29,6 @@ interface IVideo {
 }
 
 const SingleMovie: FC<SingleMovieProps> = () => {
-  //   const location = useLocation();
   const { id } = useParams<string>();
   const [getvideo, setGetVideo] = useState<IVideo>();
   const { recommendations } = useGetRecommendations();
@@ -47,7 +46,7 @@ const SingleMovie: FC<SingleMovieProps> = () => {
 
   useEffect(() => {
     setIdR(Number(id));
- window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [id]);
   useEffect(() => {
     favoriteMovies?.filter((movie: IResultData) => {

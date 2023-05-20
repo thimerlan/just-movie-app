@@ -20,6 +20,7 @@ import SingleRecommendations from "./Components/Movies/GetSingleMovie/SingleReco
 import { MovieProvider } from "./Context/MovieContext";
 import { UpComingMovieProvider } from "./Context/UpComingMovieContext";
 import DiscoverMovie from "./Components/DiscoverMovies/DiscoverMovie";
+import Movie from "./Components/DiscoverMovies/Movie/MovieDetails";
 
 const Root = (): JSX.Element => {
   return (
@@ -56,6 +57,7 @@ function App() {
           />
         </Route>
         <Route path="/discover/movie" element={<DiscoverMovie />} />
+        <Route path="/discover/movie/:id" element={<Movie />} />
       </Route>
     )
   );

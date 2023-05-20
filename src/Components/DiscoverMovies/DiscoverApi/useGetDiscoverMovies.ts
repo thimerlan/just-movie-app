@@ -1,45 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { IPMovies, Genres, ICutPages, IMovies } from "../../Movies/Interface";
 interface useGetDiscoverMoviesProps {}
-interface Genre {
-  id: number;
-  name: string;
-}
 
-interface Genres {
-  genres: Genre[];
-}
-interface IResultData {
-  poster_path: string | null;
-  adult: boolean;
-  media_type: string;
-
-  overview: string;
-  release_date: string;
-  id: number;
-  original_title: string;
-  original_language: string;
-  title: string;
-  backdrop_path: string | null;
-  popularity: number;
-  vote_count: number;
-  video: boolean;
-  vote_average: number;
-}
-export interface IMovies {
-  page: number;
-  results: IResultData[];
-  total_results: number;
-  total_pages: number;
-}
-export interface ICutPages {
-  first: number;
-  last: number;
-}
 const useGetDiscoverMovies = () => {
   const [genres, setGenres] = useState<Genres>();
   const [selectedGenreIds, setSelectedGenreIds] = useState<number[]>([]);
-  const [movies, setMovies] = useState<IMovies | undefined>();
+  const [movies, setMovies] = useState<IPMovies | undefined>();
   const [sortSelecting, setSortSelecting] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);

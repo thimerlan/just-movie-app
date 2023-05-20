@@ -14,6 +14,7 @@ const LazyImage: FC<LazyImageProps> = ({ src, alt }) => {
       effect="blur"
       threshold={100}
       placeholderSrc={src}
+	  
     />
   );
 };

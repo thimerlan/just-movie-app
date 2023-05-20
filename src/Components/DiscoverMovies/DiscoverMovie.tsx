@@ -1,10 +1,12 @@
 import { FC, useEffect, useState } from "react";
 import "./DiscoverMovie.scss";
-import Movie from "./Movie";
+import Movie from "./Movies";
 import { PropagateLoader, RiseLoader } from "react-spinners";
 import React from "react";
-import useGetDiscoverMovies, { ICutPages } from "./useGetDiscoverMovies";
+import useGetDiscoverMovies from "./DiscoverApi/useGetDiscoverMovies";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ICutPages } from "../Movies/Interface";
 
 interface DiscoverMovieProps {}
 
@@ -204,6 +206,7 @@ const DiscoverMovie: FC<DiscoverMovieProps> = () => {
               <button
                 disabled={
                   Number(primaryRelease) <= new Date().getFullYear() &&
+                  Number(primaryRelease) >= 1900 &&
                   primaryRelease !== ""
                     ? false
                     : true
