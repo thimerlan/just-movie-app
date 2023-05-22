@@ -26,7 +26,7 @@ interface IVideo {
 
 const Favorite: FC<FavoriteMovieProps> = () => {
   const { id } = useParams<string>();
-  const [getvideo, setGetVideo] = useState<IVideo>();
+  const [getVideo, setGetVideo] = useState<IVideo>();
   const { setFavoriteMovies, favoriteMovies } = useGetFavorite();
   const [countTrailer, setCountTrailer] = useState<number>(0);
   const [popup, setPopup] = useState<boolean>(false);
@@ -93,13 +93,13 @@ const Favorite: FC<FavoriteMovieProps> = () => {
     if (popup) {
       document.body.style.overflowY = "hidden";
       if (iframeRef.current) {
-        iframeRef.current.src = `https://www.youtube.com/embed/${getvideo?.results[countTrailer].key}`;
+        iframeRef.current.src = `https://www.youtube.com/embed/${getVideo?.results[countTrailer].key}`;
       }
     } else {
       document.body.style.overflowY = "auto";
       if (iframeRef.current) {
         iframeRef.current.src = ``;
-        iframeRef.current.src = `https://www.youtube.com/embed/${getvideo?.results[countTrailer].key}`;
+        iframeRef.current.src = `https://www.youtube.com/embed/${getVideo?.results[countTrailer].key}`;
       }
     }
   }, [popup]);
@@ -175,18 +175,18 @@ const Favorite: FC<FavoriteMovieProps> = () => {
           >
             <div>
               <div className="closePopup">
-                {getvideo?.results.length ? (
+                {getVideo?.results.length ? (
                   <button onClick={() => setPopup(false)}>&#10006;</button>
                 ) : (
                   ""
                 )}
               </div>
 
-              {getvideo?.results.length ? (
+              {getVideo?.results.length ? (
                 <iframe
                   ref={iframeRef}
-                  src={`https://www.youtube.com/embed/${getvideo?.results[countTrailer].key}`}
-                  title={getvideo?.results[countTrailer].name}
+                  src={`https://www.youtube.com/embed/${getVideo?.results[countTrailer].key}`}
+                  title={getVideo?.results[countTrailer].name}
                   allowFullScreen
                   width={1350}
                   height={720}
@@ -197,7 +197,7 @@ const Favorite: FC<FavoriteMovieProps> = () => {
                 </div>
               )}
               <div onClick={(e) => e.stopPropagation()} className="prev-next">
-                {getvideo?.results.length ? (
+                {getVideo?.results.length ? (
                   <>
                     <button
                       className={countTrailer === 0 ? "Btnoff" : ""}
@@ -210,12 +210,12 @@ const Favorite: FC<FavoriteMovieProps> = () => {
                     </button>
                     <button
                       className={
-                        getvideo?.results.length - 1 === countTrailer
+                        getVideo?.results.length - 1 === countTrailer
                           ? "Btnoff"
                           : ""
                       }
                       onClick={() => {
-                        getvideo?.results.length - 1 !== countTrailer &&
+                        getVideo?.results.length - 1 !== countTrailer &&
                           setCountTrailer((prev) => prev + 1);
                       }}
                     >

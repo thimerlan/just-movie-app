@@ -1,16 +1,65 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useGetMovieDetails from "../DiscoverApi/useGetMovieDetails";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { PropagateLoader } from "react-spinners";
+import YouTube from "react-youtube";
 import "./MovieDetails.scss";
+import axios from "axios";
 interface MovieProps {}
-
+interface IVideo {
+  id: number;
+  results: {
+    object: any;
+    iso_639_1: string;
+    iso_3166_1: string;
+    name: string;
+    key: string;
+    site: string;
+    size: number;
+    type: string;
+    official: boolean;
+    published_at: string;
+    id: string;
+  }[];
+}
 const MovieDetails = (props: MovieProps) => {
   const { id } = useParams<string>();
   const { movie, setMovieId, loading } = useGetMovieDetails();
+  const [getVideo, setGetVideo] = useState<IVideo>();
+  const [modal, setModal] = useState<boolean>(false);
+  const [countTrailer, setCountTrailer] = useState<number>(0);
+  const navigate = useNavigate();
   useEffect(() => {
     setMovieId(id);
   }, [id]);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    async function getVideo() {
+      let api_key = "d39c2fb1b1580a4f6618a3b23b2f7093";
+      try {
+        const response = await axios.get<IVideo>(
+          `https://api.themoviedb.org/3/movie/${Number(
+            id
+          )}/videos?api_key=${api_key}`
+        );
+        setGetVideo(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getVideo();
+  }, []);
+  useEffect(() => {
+    if (modal) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+      if (iframeRef.current) {
+        iframeRef.current.src = ``;
+      }
+    }
+  }, [modal]);
 
   function formatRuntime(minute: number) {
     const hours = Math.floor(minute / 60);
@@ -28,6 +77,11 @@ const MovieDetails = (props: MovieProps) => {
       ) : (
         movie && (
           <div className="movieDetails">
+            <div className="backToPrevPage">
+              <button onClick={() => navigate(-1)}>
+                Back to Previous Page
+              </button>
+            </div>
             <div
               style={{
                 backgroundImage: `url("https://image.tmdb.org/t/p/original${movie.backdrop_path}")`,
@@ -52,10 +106,35 @@ const MovieDetails = (props: MovieProps) => {
                     <li key={genre.id}>{genre.name}</li>
                   ))}
                 </ul>
-                <a href={movie.homepage} target="_blank">
-                  Home page of Movie
-                </a>
+
+                {!movie.homepage ? (
+                  <p>The website of the movie is absent!</p>
+                ) : (
+                  <a href={movie.homepage} target="_blank">
+                    Home page of Movie
+                  </a>
+                )}
+                <button onClick={() => setModal(true)}>Watch trailer!</button>
               </div>
+            </div>
+            <div className={modal ? "trailerVideoOn" : "trailerVideoOff"}>
+              {modal ? (
+                <YouTube
+                  videoId={getVideo?.results[countTrailer].key}
+                  title={getVideo?.results[countTrailer].name}
+                  opts={{
+                    playerVars: {
+                      controls: 1,
+                    },
+                    width: "1340",
+                    height: "720",
+                  }}
+                />
+              ) : (
+                ""
+              )}
+
+              <button onClick={() => setModal(false)}>CLOSE</button>
             </div>
           </div>
         )
