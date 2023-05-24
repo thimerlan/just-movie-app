@@ -68,6 +68,7 @@
       .genres {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         li {
           margin-right: 4px;
           background-color: #fff;
@@ -90,7 +91,7 @@
       button {
         margin-top: 10px;
         padding: 3px;
-        background-color: rgba(28, 61, 81, 0.882);
+        background-color: rgba(28, 61, 81, 0.444);
         color: #fff;
         border-radius: 1ex;
         font-weight: 575;
@@ -126,12 +127,47 @@
   transition: 0.4s;
   opacity: 1;
   transform: scale(1);
-   button {
-    background-color: rgb(51, 153, 144);
-    color: #fff;
-    font-weight: 555;
-    padding: 3.5px;
-    margin-left: 10px;
+
+  .uTube {
+    width: 1340px;
+    height: 720px;
+    border-radius: 1ex;
+    background-image: linear-gradient(to right, #375d8cd3, #375d8cc5);
+    h2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      font-size: 35px;
+      color: rgb(240, 163, 9);
+      font-weight: 777;
+    }
+  }
+
+  .handlePrevAndNextTrailer {
+    display: flex;
+    position: absolute;
+    bottom: 7px;
+    button {
+      margin-left: 35px;
+      margin-top: -25px;
+      width: 110px;
+      background-color: rgb(51, 153, 144);
+      color: #fff;
+      font-weight: 555;
+      padding: 4.5px;
+      margin-left: 10px;
+      right: 6.6%;
+      border-radius: 1ex;
+      &:disabled {
+        background-color: rgba(26, 110, 103, 0.451);
+      }
+    }
+
+    .clodeModal {
+      width: 20px;
+    }
   }
 }
 .trailerVideoOff {
@@ -151,11 +187,25 @@
   align-items: center;
   background-color: rgba(28, 61, 81, 0);
   pointer-events: none;
+  position: relative;
   button {
     background-color: rgb(51, 153, 144);
     color: #fff;
     font-weight: 555;
     padding: 3.5px;
     margin-left: 10px;
+    border-radius: 1ex;
+  }
+  .uTube {
+    width: 1340px;
+    height: 720px;
+  }
+  .handlePrevAndNextTrailer {
+    display: flex;
+    button {
+      margin-left: 35px;
+      margin-top: -25px;
+      width: 110px;
+    }
   }
 }

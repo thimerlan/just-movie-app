@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useGetMovieDetails from "../DiscoverApi/useGetMovieDetails";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { PropagateLoader } from "react-spinners";
 import YouTube from "react-youtube";
 import "./MovieDetails.scss";
@@ -32,7 +32,6 @@ const MovieDetails = (props: MovieProps) => {
   useEffect(() => {
     setMovieId(id);
   }, [id]);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   useEffect(() => {
     async function getVideo() {
       let api_key = "d39c2fb1b1580a4f6618a3b23b2f7093";
@@ -55,9 +54,6 @@ const MovieDetails = (props: MovieProps) => {
       document.body.style.overflowY = "hidden";
     } else {
       document.body.style.overflowY = "auto";
-      if (iframeRef.current) {
-        iframeRef.current.src = ``;
-      }
     }
   }, [modal]);
 
@@ -68,6 +64,7 @@ const MovieDetails = (props: MovieProps) => {
     return formattedRuntime;
   }
   const formattedRuntime = movie ? formatRuntime(movie.runtime) : "";
+
   return (
     <>
       {loading ? (
@@ -117,24 +114,68 @@ const MovieDetails = (props: MovieProps) => {
                 <button onClick={() => setModal(true)}>Watch trailer!</button>
               </div>
             </div>
-            <div className={modal ? "trailerVideoOn" : "trailerVideoOff"}>
+            <div
+              onClick={() => setModal(false)}
+              title="close trailer window"
+              className={modal ? "trailerVideoOn" : "trailerVideoOff"}
+            >
               {modal ? (
-                <YouTube
-                  videoId={getVideo?.results[countTrailer].key}
-                  title={getVideo?.results[countTrailer].name}
-                  opts={{
-                    playerVars: {
-                      controls: 1,
-                    },
-                    width: "1340",
-                    height: "720",
-                  }}
-                />
+                <div className="uTube">
+                  {getVideo?.results.length ? (
+                    <YouTube
+                      videoId={getVideo?.results[countTrailer].key}
+                      title={getVideo?.results[countTrailer].name}
+                      opts={{
+                        playerVars: {
+                          controls: 1,
+                        },
+                        width: "1340",
+                        height: "720",
+                      }}
+                    />
+                  ) : (
+                    <h2>No trailers yet! 😔</h2>
+                  )}
+                  {getVideo?.results.length !== 0 && (
+                    <div className="handlePrevAndNextTrailer">
+                      <button
+                        className="clodeModal"
+                        onClick={() => setModal(false)}
+                      >
+                        &#10008;
+                      </button>
+
+                      <button
+                        title="Previous trailer"
+                        disabled={countTrailer <= 0 ? true : false}
+                        onClick={(e) => {
+                          setCountTrailer((prev) => prev - 1),
+                            e.stopPropagation();
+                        }}
+                      >
+                        Previous Trailer
+                      </button>
+                      <button
+                        disabled={
+                          getVideo &&
+                          getVideo?.results.length - 1 === countTrailer
+                            ? true
+                            : false
+                        }
+                        title="Next trailer"
+                        onClick={(e) => {
+                          setCountTrailer((prev) => prev + 1),
+                            e.stopPropagation();
+                        }}
+                      >
+                        Next Trailer
+                      </button>
+                    </div>
+                  )}
+                </div>
               ) : (
                 ""
               )}
-
-              <button onClick={() => setModal(false)}>CLOSE</button>
             </div>
           </div>
         )
