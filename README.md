@@ -7,7 +7,7 @@ Just Movie App is a web-based application that allows users to discover and expl
 - Browse popular movies
 - sort results by popularity, revenue, top Rating
 - filter by genres and primary years
-- View movie details, including synopsis, release date, and cast etc..
+- View movie details, including release date, description of movie, genres, release date, budjet, and cast etc..
 - Save favorite movies for quick access
 - Watch movie trailers
 
